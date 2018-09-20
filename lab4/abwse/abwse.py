@@ -38,7 +38,7 @@ def ezsearch(enzyme, organism, email, rettype='json', pathprefix='./ezsearch_ret
     gene_info_lines = gene_info.split('\n')
     gene_name = gene_info_lines[1][3:]
     try:
-        gene_enzyme_name = re.findall(r"[ a-zA-Z0-9-]+(?= \[)", gene_info_lines[2])[0]
+        gene_enzyme_name = re.findall(r"[ a-zA-Z0-9-\(\)\+]+(?= \[)", gene_info_lines[2])[0]
         gene_species = re.findall(r"(?<=\[)[ a-zA-Z0-9-\.\(\):]+(?=\])", gene_info_lines[2])[0]
         gene_annotation = re.findall(r"(?<=Annotation: )[ A-Za-z0-9\._]+", gene_info)[0]
         gene_start = re.findall(r"(?<=\()[\d]+(?=\.\.)", gene_info)[0]
@@ -70,14 +70,10 @@ def ezsearch(enzyme, organism, email, rettype='json', pathprefix='./ezsearch_ret
         gene_chromosome = None
     else:
         gene_chromosome = gene_chromosome[0]    #only one chromosome possible
-    gene_note = __index_genbank_features__(gb_record, 'gene', 'note')
-    if len(gene_note) == 0:
-        gene_note = None
-    else:
-        gene_note = gene_note[0]
-    gene_description = __index_genbank_features__(gb_record, 'CDS', 'function')
+    gene_note = __index_genbank_features__(gb_record, 'gene', 'note') + __index_genbank_features__(gb_record, 'CDS', 'note')
+    gene_description = __index_genbank_features__(gb_record, 'CDS', 'function') + gene_note
     if len(gene_description) == 0:
-        gene_description = gene_note
+        gene_description = None
     else:
         gene_description = gene_description[0]
     gene_EC = __index_genbank_features__(gb_record, 'CDS', 'EC_number')
@@ -111,23 +107,24 @@ def ezsearch(enzyme, organism, email, rettype='json', pathprefix='./ezsearch_ret
         print('Wrong returning format! Returning json instead!')
         return json.dumps(gene)
 
-def eztable(enzyme_info, width=100) :
+def eztable(*enzyme_info_list, width=100) :
     enzyme_table = BT(max_width=width)
-    enzyme_table.append_row(['name', 'enzyme_name', 'species', 'start', 'end'])
-    enzyme_table.append_row([enzyme_info['name'],\
-                            enzyme_info['enzyme_name'],\
-                            enzyme_info['species'],\
-                            enzyme_info['start'],\
-                            enzyme_info['end']])
-    enzyme_table.append_row(['description', 'chromosome', 'EC', 'nt_seq', 'tran_seq'])
-    try:
-        description = enzyme_info['description']
-        enzyme_table.append_row([description if description is None or len(description)<30 else description[:30]+'...',\
-                               enzyme_info['chromosome'],\
-                               enzyme_info['EC'],\
-                               enzyme_info['nt_seq'][:30]+'...',\
-                               str(len(enzyme_info['tran_seq']))+' types; '+enzyme_info['tran_seq'][0][:25]+'...'])
-    except:
-        print('Unexpected data structure! May lack in import field!')
-        return None
+    for  enzyme_info in enzyme_info_list:
+        enzyme_table.append_row(['name', 'enzyme_name', 'species', 'start', 'end'])
+        enzyme_table.append_row([enzyme_info['name'],\
+                                enzyme_info['enzyme_name'],\
+                                enzyme_info['species'],\
+                                enzyme_info['start'],\
+                                enzyme_info['end']])
+        enzyme_table.append_row(['description', 'chromosome', 'EC', 'nt_seq', 'tran_seq'])
+        try:
+            description = enzyme_info['description']
+            enzyme_table.append_row([description if description is None or len(description)<30 else description[:30]+'...',\
+                                   enzyme_info['chromosome'],\
+                                   enzyme_info['EC'],\
+                                   enzyme_info['nt_seq'][:30]+'...',\
+                                   str(len(enzyme_info['tran_seq']))+' types; '+enzyme_info['tran_seq'][0][:25]+'...'])
+        except:
+            print('Unexpected data structure! May lack in import field!')
+            return None
     return enzyme_table
