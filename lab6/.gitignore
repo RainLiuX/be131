@@ -1,0 +1,4 @@
+*.bam*
+*.tab
+*.sam
+*.fastq
