@@ -1,0 +1,26 @@
+Time for gzip
+
+real	0m12.139s
+user	0m12.058s
+sys	0m0.080s
+Time for bzip2
+
+real	0m9.480s
+user	0m9.411s
+sys	0m0.068s
+Time for pbzip2
+
+real	0m0.651s
+user	0m15.896s
+sys	0m0.554s
+Time for Arithmatic compress
+
+real	0m21.421s
+user	0m21.217s
+sys	0m0.204s
+Zizes of each file:
+-rw-rw-r-- 1 be131-25 be131-25  96M Oct  5 15:31 nt_seq
+-rw-rw-r-- 1 be131-25 be131-25  24M Oct 10 15:47 nt_seq.art
+-rw-rw-r-- 1 be131-25 be131-25  27M Oct  5 15:31 nt_seq.bz2
+-rw-rw-r-- 1 be131-25 be131-25  28M Oct  5 15:31 nt_seq.gz
+-rw-rw-r-- 1 be131-25 be131-25  27M Oct 10 15:47 nt_seq.pbz2
