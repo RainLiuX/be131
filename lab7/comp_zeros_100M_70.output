@@ -1,0 +1,22 @@
+Time for gzip
+real 6.02
+user 5.90
+sys 0.11
+Time for bzip2
+real 13.84
+user 13.70
+sys 0.14
+Time for pbzip2
+real 1.12
+user 29.36
+sys 0.79
+Time for Arithmatic compress
+real 39.39
+user 39.07
+sys 0.32
+Sizes of each file:
+-rw-rw-r-- 1 be131-25 be131-25 104857600 Oct 10 20:45 zeros_100M_70
+-rw-rw-r-- 1 be131-25 be131-25  92411030 Oct 11 01:43 zeros_100M_70.art
+-rw-rw-r-- 1 be131-25 be131-25  99762465 Oct 10 20:45 zeros_100M_70.bz2
+-rw-rw-r-- 1 be131-25 be131-25  93617232 Oct 10 20:45 zeros_100M_70.gz
+-rw-rw-r-- 1 be131-25 be131-25  99768392 Oct 11 01:43 zeros_100M_70.pbz2

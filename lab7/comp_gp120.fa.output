@@ -1,0 +1,22 @@
+Time for gzip
+real 0.00
+user 0.00
+sys 0.00
+Time for bzip2
+real 0.00
+user 0.00
+sys 0.00
+Time for pbzip2
+real 0.00
+user 0.00
+sys 0.00
+Time for Arithmatic compress
+real 0.00
+user 0.00
+sys 0.00
+Sizes of each file:
+-rw-rw-r-- 1 be131-25 be131-25 6161 Oct 11 02:37 gp120.fa
+-rw-rw-r-- 1 be131-25 be131-25 3193 Oct 11 02:40 gp120.fa.art
+-rw-rw-r-- 1 be131-25 be131-25 1641 Oct 11 02:37 gp120.fa.bz2
+-rw-rw-r-- 1 be131-25 be131-25 1569 Oct 11 02:37 gp120.fa.gz
+-rw-rw-r-- 1 be131-25 be131-25 1641 Oct 11 02:40 gp120.fa.pbz2
