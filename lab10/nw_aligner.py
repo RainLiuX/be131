@@ -87,6 +87,8 @@ class NWAligner:
 
         for rec in SeqIO.parse(fname, 'fasta') :
             seqs.append(rec.seq)
+        if len(seqs) > 2 :
+            sys.exit(1)
 
         return seqs
 
