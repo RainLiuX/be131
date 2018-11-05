@@ -139,6 +139,8 @@ class NWAligner:
                         matrix[x][y - 1] + self.gap_penalty)
                 matrix[x][y] = score
 
+                # when traceback, judge go up first, then diagonal, then right
+                # the order matters when multiple directions are allowed
                 if score == matrix[x - 1][y] + self.gap_penalty :
                     pointers[x][y] = 1 # 1 goes down
                 elif score == matrix[x - 1][y - 1] + match_score :
